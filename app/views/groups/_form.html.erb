@@ -1,0 +1,30 @@
+<%= form_with(model: group, local: true) do |form| %>
+  <% if group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+      <% group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form_group string optional">
+   <h2><%= form.label :組別, :class => "string optional control-label" %></h2>
+    <%= form.text_field :info, id: :group_info, :class => "string optional form-control form-control" %>
+  </div>
+
+  <div class="field">
+    <h2><%= form.label :成員, :class => "string optional control-label" %></h2>
+    <%= form.text_area :member, id: :group_member, :class => "form-control" %>
+  </div>
+
+
+
+
+  <div class="actions">
+    <%= form.submit :新增, class: "btn btn-sm btn-default" %>
+  </div>
+<% end %>

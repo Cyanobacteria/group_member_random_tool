@@ -1,0 +1,19 @@
+<% @groups.each do |x|%>
+  <% if x.member_r != nil %>  
+    <div class="panel panel-default"> 
+    <div class="panel-heading"><h4> 組 別 : <%= x.info %></h4></div>
+    <% i=1 %>
+    <div class="panel-body">
+    <tr>
+    <p style="letter-spacing: 3px;">
+    <% x.member_r.split('x').each do |y| %>
+      
+      <td><%= "#{i}.#{y}" %></td>
+      <% i += 1 %> 
+    <% end %>
+    </p>
+    </tr>
+    </div> 
+    </div>
+  <% end %>
+<% end %>

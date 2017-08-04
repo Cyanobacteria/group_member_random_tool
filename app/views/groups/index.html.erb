@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+<a name="top" ></a>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar_header">
+      <a class="navbar-brand" href="#">
+        排序系統
+      </a>
+ <%= link_to('Logout', destroy_user_session_path,class: "btn btn-default navbar-btn navbar-right" ,method: :delete) %>     
+ <%= link_to('到頁尾', "#btm",class: "btn btn-default navbar-btn" ,method: :get) %>     
+  <%= link_to('排序結果', showdata_path,class: "btn btn-default navbar-btn", method: :get) %>
+<%= link_to '新增組別', new_group_path, class: "btn btn-default navbar-btn" %>
+      
+    </div>
+    </div>
+  </div>
+</nav>
+
+<table class="table table-hover">
+  <thead class="aa">
+    <tr>
+      <th>組別</th>
+      <th>成員(原始順序)</th>
+      <th>刪除</th>
+      <th>亂數</th>
+      <th>排序結果</th>
+    </tr>
+  </thead>
+
+  <tbody class="aa">
+    <% #@groups.each do |group| %>
+    <% Group.where("id > 0").find_each do |group| %>
+      <tr>
+        <td><%= group.info %></td>
+        <td><ol>
+        <% group.member.split('x').each do |g| %>
+          <li><%= g %></li>
+        <% end %>
+        <a name="<%= group.id %>" />
+        </ol></td>
+        <td><%= link_to '刪除', group, class: "btn btn-sm btn-default", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '亂數排序', random_path(group), class: "btn btn-sm btn-default", method: :put, data: { confirm: 'Are you sure?' } %></td>
+        <td><ol>
+        <% if group.member_r != nil %>
+        <% group.member_r.split('x').each do |r| %>
+          <li><%= r %></li>
+
+        <% end %>
+        <% end %>
+
+           
+
+        </td></ol>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a name="btm" />
+
+ <%= link_to('到頁首', "#top",class: "btn btn-default" ,method: :get) %>     
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
