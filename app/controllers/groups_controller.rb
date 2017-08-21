@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy, :random]
   before_action :authenticate_user!
   # GET /groups
   # GET /groups.json
@@ -30,11 +30,8 @@ class GroupsController < ApplicationController
       member_number =@group.member.split('x').count
       sort_number_arr = [*1..member_number]
       random_sort_str = sort_number_arr.shuffle.join('x')
-        
-
       @group.sort = random_sort_str
       if @group.save
-       # format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.html { redirect_to groups_path, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
@@ -83,8 +80,6 @@ class GroupsController < ApplicationController
  
 
   def random
-    @group = Group.find(params[:id])
-#__________________________________________
     member_arr = @group.member.split('x')
     sort_arr = @group.sort.split('x')
     new_member=[]
@@ -94,20 +89,11 @@ class GroupsController < ApplicationController
       new_member[i] = member_arr[sort_arr[i].to_i - 1]
       i += 1
     end
+    #______________________________________
     @group.sort = sort_arr.shuffle.join('x')
     @group.member_r = new_member.join('x')
-    puts @group.sort
-    puts @group.member_r
-
-#_____________________________________________
-    a = Group.find(params[:id])
-    a.update(:sort => sort_arr.shuffle.join('x'), :member_r => new_member.join('x'))
-     #@group.created_at(:sort => sort_arr.shuffle.join('x'), :member_r => new_member.join('x'))
-    #@group.update(group_params)
-   # @group.update(:sort => sort_arr.shuffle.join('x'), :member_r => new_member.join('x'))
-   # Group.where("id == #{params[:id]}").find_each do |group|
+    @group.update(:sort => sort_arr.shuffle.join('x'), :member_r => new_member.join('x'))
     redirect_to "/groups##{params[:id]}"
-    #end
   end
 
   private
